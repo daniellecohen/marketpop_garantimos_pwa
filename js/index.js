@@ -14,7 +14,7 @@ if(window.location.pathname.split('/').pop() == 'login.html' || window.location.
 
 // FUNCTIONS
 loadUserInfos = async() => {
-    await axios.get(`${url}/user`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
+    await axios.get(`${url}/user`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json'}})
     .then(response => {
         populateInfos(response.data.user);
     }).catch(error => {
@@ -47,7 +47,7 @@ $('#loginForm').submit(e => {
         password: $('#auth_pass').val()
     };
     $('#login_button').addClass('disabled');
-    axios.post(`${url}/auth`, data).then(response => {
+    axios.post(`${url}/auth`, {headers: {'Content-Type': 'application/json'}}, data).then(response => {
         localStorage.setItem('token', response.data.token);
         window.location = 'index.html'
     }).catch(error => {
@@ -65,7 +65,7 @@ $('#registerForm').submit(e => {
         company_name: $('#register_company_name').val(),
     }
     $('#register_button').addClass('disabled');
-    axios.post(`${url}/auth/register`, data).then(response => {
+    axios.post(`${url}/auth/register`, {headers: {'Content-Type': 'application/json'}}, data).then(response => {
         localStorage.setItem('token', response.data.token);
         window.location = 'index.html'
     }).catch(error => {
@@ -86,7 +86,7 @@ $('#warrantyForm').submit(e => {
     if(data.client_email == '' && data.client_telephone == '') {
         alert('Preencha ou o email, ou o telefone do cliente, para que possamos enviar o token da garantia');
     } else {
-        axios.post(`${url}/warranty/create`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}, data)
+        axios.post(`${url}/warranty/create`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json'}}, data)
         .then(response => {
             window.location.reload();
         }).catch(error => {
