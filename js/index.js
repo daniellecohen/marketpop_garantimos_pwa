@@ -23,9 +23,12 @@ loadUserInfos = async() => {
 }
 
 populateInfos = (user) => {
+    let total_price = 0;
+
     $('#navbar_name').html(`${user.name}`);
     $('#geral_pv').html(`${user.warranties.length > 0 ? user.warranties.length : '0'}`);
     for(warranty of user.warranties) {
+        total_price += warranty.product_price;
         $('#warrentieBox').append(`<div class="d-flex border-md-right flex-grow-1 align-items-left justify-content-left p-3 item">
         <i class="mdi mdi-download mr-3 icon-lg text-warning"></i>
         <div class="d-flex flex-column justify-content-around">
@@ -34,6 +37,7 @@ populateInfos = (user) => {
         </div>
       </div>`)
     }
+    $('#geral_vtv').html(`R$${total_price == 0 ? '0,00' : total_price}`);
 }
 
 $('#loginForm').submit(e => {
@@ -42,11 +46,13 @@ $('#loginForm').submit(e => {
         email: $('#auth_email').val(),
         password: $('#auth_pass').val()
     };
+    $('#login_button').addClass('disabled');
     axios.post(`${url}/auth`, data).then(response => {
         localStorage.setItem('token', response.data.token);
         window.location = 'index.html'
     }).catch(error => {
         alert('Confirme suas credenciais');
+        $('#login_button').addClass('disabled');
     })
 })
 
@@ -58,11 +64,13 @@ $('#registerForm').submit(e => {
         password: $('#register_pass').val(),
         company_name: $('#register_company_name').val(),
     }
+    $('#register_button').addClass('disabled');
     axios.post(`${url}/auth/register`, data).then(response => {
         localStorage.setItem('token', response.data.token);
         window.location = 'index.html'
     }).catch(error => {
-        alert('Confirme suas credenciais');
+        alert('Confira o e-mail e o telefone');
+        $('#register_button').addClass('disabled');
     })
 })
 
@@ -101,10 +109,3 @@ function checkWarrantyDays() {
         $('#warranty_warranty_date').val(0);
     }
 }
-
-document.querySelector("#warranty_warranty_date").addEventListener("keypress", function (evt) {
-    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
-    {
-        evt.preventDefault();
-    }
-});
