@@ -1,4 +1,4 @@
-var url = 'http://localhost:10'
+var url = 'http://marketpop-garantimos-api.herokuapp.com'
 
 if(window.location.pathname.split('/').pop() == 'index.html') {
     if(!localStorage.getItem('token')) {
