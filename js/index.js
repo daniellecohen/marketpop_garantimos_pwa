@@ -148,7 +148,7 @@ $('#changeForm').submit(e => {
                   <p style="vertical-align: middle; font-size: 18px; margin-top: 12px;">Nova garantia: </p>
                 </div>
                 <div class="col-5">
-                  <input required type="number" onkeydown="cleanInvalid()" onkeyup="checkWarrantyDays('warranty_exchange_date')" min="0" max="99" class="form-control" id="warranty_exchange_date" maxlength="2" placeholder="Dias" style="margin-bottom: 10px" required>
+                  <input required type="number" value="0" onkeydown="cleanInvalid()" onkeyup="checkWarrantyDays('warranty_exchange_date')" min="0" max="99" class="form-control" id="warranty_exchange_date" maxlength="2" placeholder="Dias" style="margin-bottom: 10px" required>
                 </div>
               </div>
               <button id="warranty_exchange_button" onclick="exchange()" type="button" class="btn btn-block btn-success">Alterar garantia</button>
@@ -168,16 +168,18 @@ $('#changeForm').submit(e => {
 exchange = () => {
     let token = $('#warranty_token').val()
     let data = {
-        warranty_date: parseInt($('#warranty_exchange_date').val())
+        warranty_date: $('#warranty_exchange_date').val()
     }
-    if(data.warranty_date == '') {
+    $("#warranty_exchange_button").addClass('disabled');
+    if(data.warranty_date == '0' || data.warranty_date == '') {
         $('#warranty_exchange_date').addClass('is-invalid')
     } else {
-        axios.put(`${url}/warranty/${token}/exchange`, data, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
+        axios.put(`${url}/warranty/${token}/exchange`, {warranty_date: parseInt(data.warranty_date)}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
         .then(response => {
             alert('Troca realizada com sucesso');
             window.location.reload();
         }).catch(e => {
+            $("#warranty_exchange_button").removeClass('disabled');
             console.log(e);
         });
     }
