@@ -123,8 +123,15 @@ $('#warrantyForm').submit(e => {
         axios.post(`${url}/warranty/create`, data, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
         .then(response => {
             alert(`O item ${response.data.warranty.product_name} foi adicionado a sua lista de garantias!`);
-            window.location.reload();
-            console.log(response.data);
+            // window.location.reload();
+            if(response.data.whatsapp_link == null) {
+                window.location.reload();
+            } else {
+                $('#warranty_modal_footer').html(`
+                    <button type="button" class="btn btn-danger" onclick="window.location.reload()">Voltar</button>
+                    <a href="${response.data.whatsapp_link}">Enviar via WPP</a>
+                `)
+            }
         }).catch(error => {
             alert('Tente novamente, um erro inesperado ocorreu');
             $('#warranty_cancel_button').removeClass('disabled');
