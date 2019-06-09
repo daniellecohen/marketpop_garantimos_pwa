@@ -118,7 +118,7 @@
               <span id="navbar_name" class="nav-profile-name">{{nome}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+              <a data-toggle="modal" data-target="#modalInfos" class="dropdown-item">
                 <i class="mdi mdi-settings text-primary"></i>
                 Perfil
               </a>
@@ -163,9 +163,9 @@
                     <li class="nav-item">
                       <a class="nav-link" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" aria-selected="false">Garantias</a>
                     </li>
-                    <!-- <li class="nav-item">
-                      <a class="nav-link" id="purchases-tab" data-toggle="tab" href="#purchases" role="tab" aria-controls="purchases" aria-selected="false">Nova garantia</a>
-                    </li> -->
+                    <li class="nav-item">
+                      <a class="nav-link" id="purchases-tab" data-toggle="tab" href="#purchases" role="tab" aria-controls="purchases" aria-selected="false">Pedido de troca</a>
+                    </li>
                   </ul>
                   <div class="tab-content py-0 px-0">
                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
@@ -178,6 +178,13 @@
                           </div>
                         </div>
                         <div class="d-flex border-md-right flex-grow-1 align-items-left justify-content-left p-3 item">
+                          <i class="mdi mdi-cash-multiple mr-3 icon-lg text-success"></i>
+                          <div class="d-flex flex-column justify-content-around">
+                            <small class="mb-1 text-muted">Valor total vendido</small>
+                            <h5 id="geral_vtv" class="mr-2 mb-0">{valor}</h5>
+                          </div>
+                        </div>
+                        <div class="d-flex border-md-right flex-grow-1 align-items-left justify-content-left p-3 item">
                           <i class="mdi mdi-comment-check mr-3 icon-lg text-warning"></i>
                           <div class="d-flex flex-column justify-content-around">
                             <small class="mb-1 text-muted">Produtos na garantia</small>
@@ -185,24 +192,17 @@
                           </div>
                         </div>
                         <div class="d-flex border-md-right flex-grow-1 align-items-left justify-content-left p-3 item">
-                          <i class="mdi mdi-comment-processing-outline mr-3 icon-lg text-danger"></i>
+                          <i class="mdi mdi-comment-processing-outline mr-3 icon-lg text-warning"></i>
                           <div class="d-flex flex-column justify-content-around">
                             <small class="mb-1 text-muted">Valor em garantia</small>
                             <h5 id="geral_vg" class="mr-2 mb-0">{valor}</h5>
                           </div>
                         </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-left justify-content-left p-3 item">
-                          <i class="mdi mdi-cash-multiple mr-3 icon-lg text-secondary"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Valor total vendido</small>
-                            <h5 id="geral_vtv" class="mr-2 mb-0">{valor}</h5>
-                          </div>
-                        </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
-                      <div id="warrentiesBox" class="container" style="height: 320px; overflow-y: auto">
-                        <button type="button" data-toggle="modal" data-target="#modalWarranty" class="btn btn-primary btn-rounded btn-icon" style="position: absolute; bottom: 0; right: 0; margin: 20px; width: 60px; height: 60px; margin-bottom: 115px">
+                      <div id="warrantiesBox" class="container" style="height: 320px; overflow-y: auto">
+                        <button type="button" data-toggle="modal" data-target="#modalWarranty" class="btn btn-primary btn-rounded btn-icon" style="position: absolute; bottom: 0; right: 0; margin: 20px; width: 60px; height: 60px;">
                           <i class="mdi mdi-plus icon-lg"></i>
                         </button>
                         <!-- <div class="d-flex border-md-right flex-grow-1 align-items-left justify-content-left p-3 item">
@@ -214,51 +214,17 @@
                         </div> -->
                       </div>
                     </div>
-                    <!-- <div class="tab-pane fade" id="purchases" role="tabpanel" aria-labelledby="purchases-tab">
-                      <div class="d-flex flex-wrap justify-content-xl-between">
-                        <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Start date</small>
-                            <div class="dropdown">
-                              <a class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium" href="#" role="button" id="dropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5 class="mb-0 d-inline-block">26 Jul 2018</h5>
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLinkA">
-                                <a class="dropdown-item" href="#">12 Aug 2018</a>
-                                <a class="dropdown-item" href="#">22 Sep 2018</a>
-                                <a class="dropdown-item" href="#">21 Oct 2018</a>
-                              </div>
+                    <div class="tab-pane fade" id="purchases" role="tabpanel" aria-labelledby="purchases-tab">
+                      <div class="container" style="height: 320px">
+                        <form id="changeForm" style="margin-top: 10px;">
+                            <div class="form-group">
+                              <label for="warranty_client_email">Solicitação de troca</label>
+                              <input type="text" onkeydown="cleanCheckFeedback()" class="form-control" id="warranty_token" placeholder="Token da garantia" style="margin-bottom: 10px" required>
+                              <button id="warranty_check_button" type="submit" class="btn btn-block btn-primary">Checar garantia</button>
                             </div>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-currency-usd mr-3 icon-lg text-danger"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Revenue</small>
-                            <h5 class="mr-2 mb-0">$577545</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-eye mr-3 icon-lg text-success"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Total views</small>
-                            <h5 class="mr-2 mb-0">9833550</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-download mr-3 icon-lg text-warning"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Downloads</small>
-                            <h5 class="mr-2 mb-0">2233783</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-flag mr-3 icon-lg text-danger"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Flagged</small>
-                            <h5 class="mr-2 mb-0">3497843</h5>
-                          </div>
+                        </form>
+                        <hr/>
+                        <div id="warranty_check_feedback">
                         </div>
                       </div>
                     </div>
@@ -267,7 +233,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-7 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -397,13 +363,18 @@
                   <div class="form-group">
                     <label for="warranty_product_name">Produto</label>
                     <input type="text" class="form-control" id="warranty_product_name" placeholder="Nome do produto" style="margin-bottom: 10px" required>
-                    <input type="number" class="form-control" id="warranty_product_price" placeholder="Preço do produto" style="margin-bottom: 10px" required>
+                    <div class="input-group" style="margin-bottom: 10px">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">R$</span>
+                      </div>
+                      <input type="text" id="warranty_product_price" data-mask="#.##0,00" data-mask-reverse="true" class="form-control" placeholder="Preço do produto" required>
+                    </div>
                     <div class="row">
                       <div class="col-7" style="text-align: center;">
                         <p style="vertical-align: middle; font-size: 18px; margin-top: 12px;">Prazo da garantia: </p>
                       </div>
                       <div class="col-5">
-                        <input type="number" onkeyup="checkWarrantyDays()" min="0" max="99" class="form-control" id="warranty_warranty_date" maxlength="2" placeholder="Dias" style="margin-bottom: 10px" required>
+                        <input type="text" data-mask="00" class="form-control" id="warranty_warranty_date" maxlength="2" placeholder="Dias" style="margin-bottom: 10px" required>
                       </div>
                     </div>
                   </div>
@@ -411,17 +382,55 @@
                   <div class="form-group">
                     <label for="warranty_client_email">Cliente</label>
                     <input type="email" class="form-control" id="warranty_client_email" placeholder="Email do cliente" style="margin-bottom: 10px">
-                    <input type="number" class="form-control" id="warranty_client_telephone" placeholder="Celular do cliente" style="margin-bottom: 10px">
+                    <input type="text" class="form-control" id="warranty_client_telephone" data-mask="(00) 0 0000-0000" placeholder="Celular do cliente" style="margin-bottom: 10px">
                   </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <button id="warranty_cancel_button" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button id="warranty_add_button" type="submit" class="btn btn-primary">Adicionar</button>
               </form>
               </div>
             </div>
           </div>
         </div>
+        <!--   MODAL PARA EDITAR INFORMAÇÕES  -->
+        <div class="modal fade" id="modalInfos" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalInfosLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalInfosLabe">Informações do usuário</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+              </div>
+              <div class="modal-body">
+                <form id="editForm">
+                  <div class="form-group">
+                    <label for="warranty_product_name">Loja</label>
+                    <input type="text" class="form-control" id="edit_company_name" placeholder="Nome da loja" style="margin-bottom: 10px" required>
+                  </div>
+                  <hr/>
+                  <div class="form-group">
+                    <label for="warranty_product_name">Pessoal</label>
+                    <input type="text" class="form-control" id="edit_name" placeholder="Nome" style="margin-bottom: 10px" required>
+                    <input type="email" class="form-control" id="edit_email" placeholder="Email" style="margin-bottom: 10px" required>
+                    <input type="text" data-mask="(00) 0 0000-0000" class="form-control" id="edit_telephone" placeholder="Telefone" style="margin-bottom: 10px" required>
+                  </div>
+                  <hr/>
+                  <div class="form-group">
+                    <label for="warranty_product_name">Observação das garantias</label>
+                    <textarea rows="2" class="form-control" id="edit_warranty_obs" placeholder="Produto sem arranhões e funcionando" style="margin-bottom: 10px" required></textarea> 
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button id="edit_cancel_button" type="button" class="btn btn-danger" data-dismiss="modal">Voltar</button>
+                <button id="edit_confirm_button" type="submit" class="btn btn-primary">Alterar</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2019 <a href="https://www.urbanui.com/" target="_blank">Urbanui</a>. All rights reserved.</span>
@@ -460,6 +469,7 @@
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
   <script src="js/locale.js"></script>
   <script src="js/index.js"></script>

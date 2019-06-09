@@ -43,6 +43,17 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label>Seu nome</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="mdi mdi-account-outline text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg border-left-0" id="register_name" placeholder="Fulano(a)">
+                  </div>
+                </div>
+                <div class="form-group">
                   <label>Email</label>
                   <div class="input-group">
                     <div class="input-group-prepend bg-transparent">
@@ -54,14 +65,14 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label>Celular</label>
+                  <label>Telefone</label>
                   <div class="input-group">
                     <div class="input-group-prepend bg-transparent">
                       <span class="input-group-text bg-transparent border-right-0">
                         <i class="mdi mdi-cellphone-android text-primary"></i>
                       </span>
                     </div>
-                    <input type="number" class="form-control form-control-lg border-left-0" id="register_telephone" placeholder="+5521911223344">
+                    <input data-mask="(00) 0 0000-0000" type="number" class="form-control form-control-lg border-left-0" id="register_telephone" placeholder="+5521911223344">
                   </div>
                 </div>
                 <div class="form-group">
@@ -108,7 +119,12 @@
   <script src="./js/hoverable-collapse.js"></script>
   <script src="./js/template.js"></script>
   <!-- endinject -->
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
   <script src="./js/index.js"></script>
 </body>
 
