@@ -23,6 +23,9 @@ loadUserInfos = async() => {
 }
 
 populateInfos = (user) => {
+    let reversed_warranties = user.warranties.reverse();
+    user.warranties = reversed_warranties;
+
     $('#edit_company_name').val(`${user.company_name}`);
     $('#edit_name').val(`${user.name}`);
     $('#edit_email').val(`${user.email}`);
