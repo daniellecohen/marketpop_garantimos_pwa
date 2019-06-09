@@ -1,4 +1,4 @@
-var url = 'https://marketpop-garantimos-api.herokuapp.com' // 'http://localhost:10'
+var url = 'http://localhost:10'
 
 if(window.location.pathname.split('/').pop() == 'index.html') {
     if(!localStorage.getItem('token')) {
@@ -45,7 +45,7 @@ populateInfos = (user) => {
             <i class="mdi mdi-download mr-3 icon-lg text-warning"></i>
             <div class="d-flex flex-column justify-content-around">
             <small class="mb-1 text-muted">${warranty.product_name} - R$${warranty.product_price.toString().substr(0, warranty.product_price.toString().length-2)},${warranty.product_price.toString().substr(warranty.product_price.toString().length-2, warranty.product_price.toString().length)}</small>
-            <h5 class="mr-2 mb-0">${moment(warranty.warranty_date).format('L - LT')}</h5>
+            <h5 class="mr-2 mb-0">${moment(warranty.warranty_date).tz("America/Sao_Paulo").format('L - LT')}</h5>
             </div>
             </div>`
             )
@@ -56,7 +56,7 @@ populateInfos = (user) => {
             <i class="mdi mdi-download mr-3 icon-lg text-danger"></i>
             <div class="d-flex flex-column justify-content-around">
             <small class="mb-1 text-muted">${warranty.product_name} - R$${warranty.product_price.toString().substr(0, warranty.product_price.toString().length-2)},${warranty.product_price.toString().substr(warranty.product_price.toString().length-2, warranty.product_price.toString().length)}</small>
-            <h5 class="mr-2 mb-0">${moment(warranty.warranty_date).format('L - LT')}</h5>
+            <h5 class="mr-2 mb-0">${moment(warranty.warranty_date).tz("America/Sao_Paulo").format('L - LT')}</h5>
             </div>
             </div>`
             )
