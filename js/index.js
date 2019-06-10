@@ -1,6 +1,6 @@
 var url = 'https://marketpop-garantimos-api.herokuapp.com' // 'http://localhost:10'
 
-if(window.location.pathname.split('/').pop() == 'index.html') {
+if(window.location.pathname.split('/').pop() == 'main.html') {
     if(!localStorage.getItem('token')) {
         window.location = 'login.html';
     }
@@ -8,7 +8,7 @@ if(window.location.pathname.split('/').pop() == 'index.html') {
 
 if(window.location.pathname.split('/').pop() == 'login.html' || window.location.pathname.split('/').pop() == 'register.html') {
     if(localStorage.getItem('token')) {
-        window.location = 'index.html';
+        window.location = 'main.html';
     }
 }
 
@@ -80,7 +80,7 @@ $('#loginForm').submit(e => {
     $('#login_button').addClass('disabled');
     axios.post(`${url}/auth`, data).then(response => {
         localStorage.setItem('token', response.data.token);
-        window.location = 'index.html'
+        window.location = 'main.html'
     }).catch(error => {
         $('#login_button').removeClass('disabled');
         alert('Confirme suas credenciais');
@@ -99,7 +99,7 @@ $('#registerForm').submit(e => {
     $('#register_button').addClass('disabled');
     axios.post(`${url}/auth/register`, data).then(response => {
         localStorage.setItem('token', response.data.token);
-        window.location = 'index.html'
+        window.location = 'main.html'
     }).catch(error => {
         alert('Confira o e-mail e o telefone');
         $('#register_button').removeClass('disabled');
