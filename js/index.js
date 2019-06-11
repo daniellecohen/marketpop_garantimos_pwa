@@ -2,11 +2,11 @@ var url = 'https://marketpop-garantimos-api.herokuapp.com' // 'http://localhost:
 
 if(window.location.pathname.split('/').pop() == 'main.html') {
     if(!localStorage.getItem('token')) {
-        window.location = 'login.html';
+        window.location = 'index.html';
     }
 }
 
-if(window.location.pathname.split('/').pop() == 'login.html' || window.location.pathname.split('/').pop() == 'register.html') {
+if(window.location.pathname.split('/').pop() == 'index.html' || window.location.pathname.split('/').pop() == '' || window.location.pathname.split('/').pop() == 'register.html') {
     if(localStorage.getItem('token')) {
         window.location = 'main.html';
     }
@@ -212,7 +212,7 @@ $('#editForm').submit(e => {
 
 function exit() {
     localStorage.clear();
-    window.location = 'login.html';
+    window.location = 'index.html';
 }
 
 function checkWarrantyDays(id) {
