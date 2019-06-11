@@ -128,8 +128,14 @@ $('#warrantyForm').submit(e => {
                 window.location.reload();
             } else {
                 $('#warranty_modal_footer').html(`
-                    <button type="button" class="btn btn-danger" onclick="window.location.reload()">Voltar</button>
-                    <a href="${response.data.whatsapp_link}">Enviar via WPP</a>
+                    <button type="button" onclick="window.location.reload()" class="btn btn-danger btn-icon-text">
+                        <i class="mdi mdi-account-check btn-icon-prepend"></i>                                                    
+                         Finalizar
+                    </button>
+                    <button type="button" onclick="window.location = '${response.data.whatsapp_link}'" class="btn btn-success btn-icon-text">
+                        <i class="mdi mdi-whatsapp btn-icon-prepend"></i>                                                    
+                         Enviar via WPP
+                    </button>
                 `)
             }
         }).catch(error => {
