@@ -134,7 +134,7 @@ $('#warrantyForm').submit(e => {
                     </button>
                     <button type="button" onclick="window.location = '${response.data.whatsapp_link}'" class="btn btn-success btn-icon-text">
                         <i class="mdi mdi-whatsapp btn-icon-prepend"></i>                                                    
-                         Enviar via WPP
+                         Enviar via WhatsApp
                     </button>
                 `)
             }
