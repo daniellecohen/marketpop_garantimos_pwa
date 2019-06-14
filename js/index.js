@@ -1,3 +1,9 @@
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-142154778-1');
+
 var url = 'https://marketpop-garantimos-api.herokuapp.com' // 'http://localhost:10'
 
 if(window.location.pathname.split('/').pop() == 'main.html') {
