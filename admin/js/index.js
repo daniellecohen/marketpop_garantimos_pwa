@@ -1,5 +1,10 @@
-$(jQuery).ready(() => {
-    axios.get("https://marketpop-garantimos-api.herokuapp.com/users")
+$("#loadingModal").modal('show');
+
+$("#pinForm").submit(e => {
+    e.preventDefault();
+    $("#pin_button").addClass('disabled');
+    let data = { pin: $("#pin").val() };
+    axios.post("https://marketpop-garantimos-api.herokuapp.com/users", data)
     .then(async response => {
         let users = [];
         let warranties = [];
@@ -199,37 +204,38 @@ $(jQuery).ready(() => {
             var myChart = new Chart(ctx, {
                 type: 'bar',
         data: {
-          labels: months,
-          datasets: [
+            labels: months,
+            datasets: [
             {
-              label: "Centavos",
-              data: priceValues,
-              borderColor: "transparent",
-              borderWidth: "0",
-              backgroundColor: "rgba(255,255,255,.3)"
+                label: "Centavos",
+                data: priceValues,
+                borderColor: "transparent",
+                borderWidth: "0",
+                backgroundColor: "rgba(255,255,255,.3)"
             }
-          ]
+            ]
         },
         options: {
-          maintainAspectRatio: true,
-          legend: {
+            maintainAspectRatio: true,
+            legend: {
             display: false
-          },
-          scales: {
+            },
+            scales: {
             xAxes: [{
-              display: false,
-              categoryPercentage: 1,
-              barPercentage: 0.65
+                display: false,
+                categoryPercentage: 1,
+                barPercentage: 0.65
             }],
             yAxes: [{
-              display: false
+                display: false
             }]
-          }
+            }
         }
             });
         }
-
+        $("#loadingModal").modal('hide');
     }).catch(e => {
-        console.log(e);
+        $("#pin").addClass('is-invalid');
+        $("#pin_button").removeClass('disabled');
     })
 })

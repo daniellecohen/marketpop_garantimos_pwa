@@ -267,10 +267,13 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="loadingModalLabel">Carregando ...</h5>
+                    <h5 class="modal-title" id="loadingModalLabel">Autenticação</h5>
                     </div>
                     <div class="modal-body">
-                        Espere um pouco...
+                        <form id="pinForm">
+                            <input required type="password" onkeydown="$('#pin').removeClass('is-invalid')" id="pin" placeholder="Digite o PIN" maxlength="8" style="margin-bottom: 10px;" class="form-control">
+                            <button type="submit" id="pin_button" class="btn btn-block btn-secondary">Entrar</button>
+                        </form>
                     </div>
                     <div class="modal-footer">
                     </div>
