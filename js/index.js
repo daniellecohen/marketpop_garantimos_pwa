@@ -130,7 +130,8 @@ $('#warrantyForm').submit(e => {
         client_email: $('#warranty_client_email').val() != '' ? $('#warranty_client_email').val() : 'no email',
         client_telephone: $('#warranty_client_telephone').cleanVal() != '' ? parseInt($('#warranty_client_telephone').cleanVal()) : 0,
     }
-    if(data.client_email == '' && data.client_telephone == '') {
+    console.log(data);
+    if(data.client_email == 'no email' && data.client_telephone == 0) {
         alert('Preencha ou o email, ou o telefone do cliente, para que possamos enviar o token da garantia');
     } else {
         $('#warranty_cancel_button').addClass('disabled');
