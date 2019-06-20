@@ -27,6 +27,9 @@ if(window.location.pathname.split('/').pop() == 'index.html' || window.location.
     }
 }
 
+var autocomplete_warranty_tags = [];
+var autocomplete_warranty_prices = [];
+
 // FUNCTIONS
 loadUserInfos = async() => {
     await axios.get(`${url}/user`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
@@ -54,6 +57,10 @@ populateInfos = (user) => {
     $('#navbar_name').html(`${user.name}`);
     $('#geral_pv').html(`${user.warranties.length > 0 ? user.warranties.length : '0'}`);
     for(warranty of user.warranties) {
+        if(!autocomplete_warranty_tags.includes(warranty.product_name)) {
+            autocomplete_warranty_tags.push(warranty.product_name);
+            autocomplete_warranty_prices.push(warranty.product_price);
+        }
         total_price += warranty.product_price;
         if(new Date(warranty.warranty_date) > new Date()) {
             $('#warrantiesBox').append(`<div class="d-flex border-md-right flex-grow-1 align-items-left justify-content-left p-3 item">
@@ -84,6 +91,13 @@ populateInfos = (user) => {
     $('#geral_vtv').html(`R$${total_price.toString().substr(0, total_price.toString().length-2)},${total_price.toString().substr(total_price.toString().length-2, total_price.toString().length)}`);
     $('#geral_vg').html(`R$${warranty_price.toString().substr(0, warranty_price.toString().length-2)},${warranty_price.toString().substr(warranty_price.toString().length-2, warranty_price.toString().length)}`);
     $('#geral_pg').html(`${in_warranty}`);
+
+    $('#warranty_product_name').autocomplete({
+        source: autocomplete_warranty_tags,
+        select: function (e, ui) {
+            $('#warranty_product_price').val(autocomplete_warranty_prices[autocomplete_warranty_tags.indexOf(ui.item.value)]).trigger('input');
+        },
+    });
 }
 
 $('#loginForm').submit(e => {
